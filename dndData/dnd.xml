@@ -18,7 +18,7 @@
 					<soundfile path="sound/storm/thunderClap_L_4.wav" />
 				</oneshot>
 			</ambiant>
-			<ambiant name="Wind" imgPath="img/wind.png" soundPath="sound/wind.mp3" />
+			<ambiant name="Wind" imgPath="img/wind.png" soundPath="sound/wind.wav" loopDuration="12500" shadingDuration="3000" />
 		</category>
 		<category name="Fight" >
 			<oneshot name="Sword Clash" imgPath="img/sword.png" >
