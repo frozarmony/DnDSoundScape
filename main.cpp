@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
 	// View
 	viewer.setMainQmlFile(QStringLiteral("qml/DnDSoundScape/main.qml"));
-	viewer.showExpanded();
+	viewer.showMaximized();
 
     return app.exec();
 }
