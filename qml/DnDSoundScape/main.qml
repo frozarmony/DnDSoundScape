@@ -4,7 +4,7 @@ Rectangle {
 	id: mainWindow
 
 	// Property
-	property int soundBlockSize:  150
+    property int soundBlockSize:  100
 
 	Image {
 		id: background
