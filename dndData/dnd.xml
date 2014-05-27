@@ -1,0 +1,46 @@
+﻿<!DOCTYPE dnd>
+<dnd>
+	<universal>
+		<category name="Weather" >
+			<ambiant name="Rain" imgPath="img/rain.png" soundPath="sound/rain.wav" loopDuration="10000" shadingDuration="3000" />
+			<ambiant name="Storm" imgPath="img/storm.png" soundPath="sound/rain.wav" loopDuration="10000" shadingDuration="3000" >
+				<oneshot name="Thunder(M)" imgPath="img/storm.png" mTime="10000" sdTime="4000" >
+					<soundfile path="sound/storm/thunderClap_M_1.wav" />
+					<soundfile path="sound/storm/thunderClap_M_2.wav" />
+					<soundfile path="sound/storm/thunderClap_M_3.wav" />
+					<soundfile path="sound/storm/thunderClap_M_4.wav" />
+					<soundfile path="sound/storm/thunderClap_M_5.wav" />
+				</oneshot>
+				<oneshot name="Thunder(L)" imgPath="img/storm.png" mTime="30000" sdTime="15000" >
+					<soundfile path="sound/storm/thunderClap_L_1.wav" />
+					<soundfile path="sound/storm/thunderClap_L_2.wav" />
+					<soundfile path="sound/storm/thunderClap_L_3.wav" />
+					<soundfile path="sound/storm/thunderClap_L_4.wav" />
+				</oneshot>
+			</ambiant>
+			<ambiant name="Wind" imgPath="img/wind.png" soundPath="sound/wind.mp3" />
+		</category>
+		<category name="Fight" >
+			<oneshot name="Sword Clash" imgPath="img/sword.png" >
+				<soundfile path="sound/sword1.mp3" />
+				<soundfile path="sound/sword2.wav" />
+			</oneshot>
+		</category>
+		<category name="Epic Fail" rowWidth="1" >
+			<music name="Bonhomme" imgPath="img/bonhomme.png" soundPath="sound/bonhomme.mp3" />
+		</category>
+	</universal>
+	
+	
+	<places>
+		<place name="Forest" imgPath="img/forest.png" >
+			<ambiant name="Forest" imgPath="img/forest.png" soundPath="sound/forest.mp3" />
+			<oneshot name="Howling Wolf" imgPath="img/howling-wolf.png" >
+				<soundfile path="sound/howling-wolf.mp3" />
+			</oneshot>
+			<oneshot name="Boar Oink" imgPath="img/boar-oink.png" >
+				<soundfile path="sound/boar-oink.wav" />
+			</oneshot>
+		</place>
+	</places>
+</dnd>
