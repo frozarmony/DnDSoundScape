@@ -295,7 +295,7 @@ SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataP
 		MusicSoundModel* music = new MusicSoundModel(
 						  xmlSound.attribute("name"),
 						  dataPath + "/" + xmlSound.attribute("imgPath"),
-						  (xmlSound.attribute("random", "false") == "true")
+						  xmlSound.attribute("mode", "sequential")
 		);
 
 		// Get Each sub-sounds

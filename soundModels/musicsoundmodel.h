@@ -12,7 +12,7 @@ class MusicSoundModel : public SoundModel
 	Q_OBJECT
 public:
 	// Constructor
-	MusicSoundModel(const QString& name, const QString& imgPath, bool random);
+	MusicSoundModel(const QString& name, const QString& imgPath, const QString &mode);
 
 	// Method
 	void				addMusic(const QString& musicPath);
@@ -25,6 +25,9 @@ protected:
 
 public slots:
 	void				onMasterVolumeChanged();
+
+private slots:
+	void				onPlayerStop(QMediaPlayer::State state);
 
 private:
 	QMediaPlayer		m_player;
