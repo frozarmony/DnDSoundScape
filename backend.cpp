@@ -18,8 +18,6 @@ Backend::Backend(QQmlContext *ctxt, QObject *parent) :
 
 	// Places Models
 	m_placesPanel("Places", 1),
-	m_atmospheresPanel("Atmospheres", 2),
-	m_miscellaneousPanel("Miscellaneous", 2),
 
 	// Panels Models
 	m_placesPanels(),
@@ -39,7 +37,7 @@ Backend::Backend(QQmlContext *ctxt, QObject *parent) :
 
 	// Panels
 	initPlacesPanels();
-	m_ctxt->setContextProperty("universalPanelsList", QVariant::fromValue((QList<QObject*>&)m_universalPanels));
+	m_ctxt->setContextProperty("universalPanelsList", QVariant::fromValue((QObject*)&m_universalPanels));
 }
 
 // Qml Interface
@@ -92,12 +90,10 @@ void Backend::initMastersVolume(){
 
 void Backend::initPlacesPanels(){
 	// Make Places Panels List
-	m_placesPanels.append(&m_placesPanel);
-	m_placesPanels.append(&m_atmospheresPanel);
-	m_placesPanels.append(&m_miscellaneousPanel);
+	m_placesPanels.addPanel(&m_placesPanel);
 
-	// Update Context
-	m_ctxt->setContextProperty("placesPanelsList", QVariant::fromValue((QList<QObject*>&)m_placesPanels));
+	// Init Context
+	m_ctxt->setContextProperty("placesPanelsList", QVariant::fromValue((QObject*)&m_placesPanels));
 }
 
 SoundModel * Backend::registerSound(SoundModel *sound, bool subSound = false){
@@ -133,15 +129,13 @@ SoundModel * Backend::registerSound(SoundModel *sound, bool subSound = false){
 void Backend::loadPlace(PlaceSoundModel *place){
 	if( m_loadedPlace != place && place != NULL ){
 		// Clear Old Place
-		m_atmospheresPanel.clear();
-		m_miscellaneousPanel.clear();
+		while( m_placesPanels.rowCount() > 1 ){
+			m_placesPanels.removePanel(1);
+		}
 
 		// Load place
-		foreach (SoundModel* sound, place->sounds()) {
-			if(sound->type() <= SoundModel::TYPE_MUSIC)
-				m_miscellaneousPanel.addSound(sound);
-			else
-				m_atmospheresPanel.addSound(sound);
+		foreach (PanelModel* category, place->categories()) {
+			m_placesPanels.addPanel(category);
 		}
 		m_loadedPlace = place;
 	}
@@ -183,20 +177,8 @@ void Backend::loadXmlFile(const QString &filePath){
 		if( node.isElement() ){
 			// Add New Category
 			QDomElement category = node.toElement();
-			PanelModel* categoryPanel = new PanelModel(category.attribute("name", "Undefined Category"),
-													   category.attribute("rowWidth", "2").toInt());
 
-			// Fill Category
-			QDomNodeList sounds = category.childNodes();
-			for(int j=0; j<sounds.count(); ++j){	// Foreach Sound in Category
-				node = sounds.at(j);
-
-				if( node.isElement() ){
-					categoryPanel->addSound( loadSound(node.toElement(), dataPath) );
-				}
-			}
-
-			m_universalPanels.append(categoryPanel);
+			m_universalPanels.addPanel( loadCategory(category, dataPath) );
 		}
 	}
 
@@ -216,12 +198,15 @@ void Backend::loadXmlFile(const QString &filePath){
 			);
 
 			// Fill Place
-			QDomNodeList sounds = place.childNodes();
-			for(int j=0; j<sounds.count(); ++j){	// Foreach Sound in Place
-				node = sounds.at(j);
+			QDomNodeList placeCategories = place.elementsByTagName("category");
+			for(int i=0; i<placeCategories.count(); ++i){	// Foreach Category
+				node = placeCategories.at(i);
 
 				if( node.isElement() ){
-					placeModel->addSound( loadSound(node.toElement(), dataPath) );
+					// Add New Category
+					QDomElement category = node.toElement();
+
+					placeModel->addCategory( loadCategory(category, dataPath) );
 				}
 			}
 
@@ -230,14 +215,29 @@ void Backend::loadXmlFile(const QString &filePath){
 		}
 	}
 
-	// Update Model in QML
-	m_ctxt->setContextProperty("universalPanelsList", QVariant::fromValue((QList<QObject*>&)m_universalPanels));
-
 	// Reset Masters
 	m_generalMaster.setVolume(0.8);
 	m_oneShotMaster.setVolume(0.8);
 	m_ambiantMaster.setVolume(0.8);
 	m_musicMaster.setVolume(0.8);
+}
+
+PanelModel* Backend::loadCategory(const QDomElement &category, const QString &dataPath){
+	QDomNode node;
+	PanelModel* categoryPanel = new PanelModel(category.attribute("name", "Undefined Category"),
+											   category.attribute("rowWidth", "2").toInt());
+
+	// Fill Category
+	QDomNodeList sounds = category.childNodes();
+	for(int j=0; j<sounds.count(); ++j){	// Foreach Sound in Category
+		node = sounds.at(j);
+
+		if( node.isElement() ){
+			categoryPanel->addSound( loadSound(node.toElement(), dataPath) );
+		}
+	}
+
+	return categoryPanel;
 }
 
 SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataPath){

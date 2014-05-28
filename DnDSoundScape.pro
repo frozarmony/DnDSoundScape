@@ -28,7 +28,8 @@ SOURCES += main.cpp \
     soundModels/musicsoundmodel.cpp \
     panelmodel.cpp \
     mastervolumemodel.cpp \
-    soundModels/placesoundmodel.cpp
+    soundModels/placesoundmodel.cpp \
+    panellistmodel.cpp
 
 # Installation path
 # target.path =
@@ -45,6 +46,7 @@ HEADERS += \
     soundModels/musicsoundmodel.h \
     panelmodel.h \
     mastervolumemodel.h \
-    soundModels/placesoundmodel.h
+    soundModels/placesoundmodel.h \
+    panellistmodel.h
 
 RC_FILE = DnDSoundScape.rc

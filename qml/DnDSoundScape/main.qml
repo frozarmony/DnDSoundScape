@@ -117,7 +117,7 @@ Rectangle {
 
 		model: universalPanelsList
 		delegate: SoundPanel {
-			panelModel: model.modelData
+            panelModel: panel
 			width: parent.width
 			soundBlockSize: soundBlockSize
 		}

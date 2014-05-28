@@ -8,15 +8,21 @@ PlaceSoundModel::PlaceSoundModel(const QString& name, const QString& imgPath) :
 }
 
 // Getter
-const QList<SoundModel*> PlaceSoundModel::sounds() const{
-	return m_sounds;
+const QList<PanelModel*> PlaceSoundModel::categories() const{
+	return m_categories;
 }
 
 // Method
-void PlaceSoundModel::addSound(SoundModel* newSound){
-	QObject::connect(newSound, SIGNAL(started()), this, SLOT(onChildSoundStarted()));
-	QObject::connect(newSound, SIGNAL(stopped()), this, SLOT(onChildSoundStopped()));
-	m_sounds.append(newSound);
+void PlaceSoundModel::addCategory(PanelModel* newCategory){
+	// Connect Child Sounds
+	for( int i=0; i<newCategory->rowCount(); ++i){
+		SoundModel* newSound = newCategory->getSound(i);
+		QObject::connect(newSound, SIGNAL(started()), this, SLOT(onChildSoundStarted()));
+		QObject::connect(newSound, SIGNAL(stopped()), this, SLOT(onChildSoundStopped()));
+	}
+
+	// Add Category
+	m_categories.append(newCategory);
 }
 
 // IsPlaying, Start & Stop
@@ -30,9 +36,12 @@ void PlaceSoundModel::startSound(){
 
 void PlaceSoundModel::stopSound(){
 	if( isPlayingSound() ){
-		foreach (SoundModel* sound, m_sounds) {
-			if(sound->isPlaying()){
-				sound->stop();
+		foreach (PanelModel* panel, m_categories) {
+			for( int i=0; i<panel->rowCount(); ++i){
+				SoundModel* sound = panel->getSound(i);
+				if(sound->isPlaying()){
+					sound->stop();
+				}
 			}
 		}
 	}

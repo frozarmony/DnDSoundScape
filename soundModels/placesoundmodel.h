@@ -1,7 +1,7 @@
 #ifndef PLACESOUNDMODEL_H
 #define PLACESOUNDMODEL_H
 
-#include "soundmodel.h"
+#include "panelmodel.h"
 
 class PlaceSoundModel : public SoundModel
 {
@@ -11,10 +11,10 @@ public:
 	PlaceSoundModel(const QString& name, const QString& imgPath);
 
 	// Getter
-	const QList<SoundModel*>	sounds() const;
+	const QList<PanelModel*>	categories() const;
 
 	// Method
-	void						addSound(SoundModel* newSound);
+	void						addCategory(PanelModel* newCategogy);
 
 protected:
 	// Inherited Method
@@ -28,7 +28,7 @@ private slots:
 
 private:
 	// Member
-	QList<SoundModel*>			m_sounds;
+	QList<PanelModel*>			m_categories;
 	int							m_playingChildrenSounds;
 };
 

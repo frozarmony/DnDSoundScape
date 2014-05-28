@@ -20,6 +20,10 @@ void PanelModel::addSound(SoundModel *sound){
 	endInsertRows();
 }
 
+SoundModel* PanelModel::getSound(int index){
+	return m_sounds.at(index);
+}
+
 void PanelModel::clear(){
 	beginRemoveRows(QModelIndex(), 0, rowCount());
 	m_sounds.clear();

@@ -11,6 +11,7 @@
 #include <QDomDocument>
 
 #include "mastervolumemodel.h"
+#include "panellistmodel.h"
 #include "panelmodel.h"
 #include "soundmodel.h"
 #include "soundModels/placesoundmodel.h"
@@ -52,18 +53,17 @@ private:
 
 	// Places Panels
 	PanelModel					m_placesPanel;
-	PanelModel					m_atmospheresPanel;
-	PanelModel					m_miscellaneousPanel;
 
 	// Panels Models
-	QList<PanelModel*>			m_placesPanels;
-	QList<PanelModel*>			m_universalPanels;
+	PanelListModel				m_placesPanels;
+	PanelListModel				m_universalPanels;
 
 	// Tool Method
 	void						initMastersVolume();
 	void						initPlacesPanels();
 	SoundModel*					registerSound(SoundModel* sound, bool subSound);
 	void						loadXmlFile(const QString& filePath);
+	PanelModel*					loadCategory(const QDomElement& category, const QString& dataPath);
 	SoundModel*					loadSound(const QDomElement& xmlSound, const QString& dataPath);
 
 };

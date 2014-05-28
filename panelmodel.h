@@ -23,6 +23,7 @@ public:
 
 	// Method
 	void					addSound(SoundModel* sound);
+	SoundModel*				getSound(int index);
 	void					clear();
 
 	// QAbstractListModel Implementation
