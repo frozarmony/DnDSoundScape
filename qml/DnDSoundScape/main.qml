@@ -6,6 +6,9 @@ Rectangle {
 	// Property
     property int soundBlockSize:  100
 
+    width: 1000
+    height: 400
+
 	Image {
 		id: background
 		anchors.fill: parent
@@ -32,6 +35,7 @@ Rectangle {
 				id: menuBar
 
 				anchors.fill: parent
+                spacing: 30
 
 				Image {
 					id: open
@@ -91,31 +95,54 @@ Rectangle {
 
 	// Places Part
 	ListView {
-		id: placesPanelsListView
+        id: universalPanelsListView
 
-		model: placesPanelsList
+        model: universalPanelsList
 		delegate: SoundPanel {
-			panelModel: model.modelData
+            panelModel: panel
 			width: parent.width
 			soundBlockSize: soundBlockSize
 		}
 
-		width: mainWindow.width/2
-		boundsBehavior: Flickable.StopAtBounds
+        width: mainWindow.width/2
 		anchors.bottom: controllerView.top
 		anchors.left: parent.left
 		anchors.top: parent.top
-		anchors.right: universalPanelsListView.left
+        anchors.right: placesPanelsListView.left
 		anchors.margins: 10
 		clip: true
 		spacing: 10
+
+        Image {
+          height: 15
+          anchors.right: parent.right
+          anchors.rightMargin: 0
+          anchors.left: parent.left
+          anchors.leftMargin: 0
+          anchors.top: parent.top
+          anchors.topMargin: 0
+          source: "img/shadow-border.png"
+        }
+
+        Image {
+          y: 30
+          height: 15
+          anchors.right: parent.right
+          anchors.rightMargin: 0
+          anchors.left: parent.left
+          anchors.leftMargin: 0
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: 0
+          rotation: 180
+          source: "img/shadow-border.png"
+        }
 	}
 
 	// Universale Part
-	ListView {
-		id: universalPanelsListView
+    ListView {
+        id: placesPanelsListView
 
-		model: universalPanelsList
+        model: placesPanelsList
 		delegate: SoundPanel {
             panelModel: panel
 			width: parent.width
@@ -126,10 +153,34 @@ Rectangle {
 		anchors.top: parent.top
 		anchors.bottom: parent.bottom
 		anchors.right: parent.right
-		anchors.margins: 10
-		clip: true
+        anchors.margins: 10
+        clip: true
 		spacing: 10
-		opacity: (universalPanelsListView.count===0)?0:1
+        opacity: (placesPanelsListView.count===0)?0:1
+
+        Image {
+          height: 15
+          anchors.right: parent.right
+          anchors.rightMargin: 0
+          anchors.left: parent.left
+          anchors.leftMargin: 0
+          anchors.top: parent.top
+          anchors.topMargin: 0
+          source: "img/shadow-border.png"
+        }
+
+        Image {
+          y: 30
+          height: 15
+          anchors.right: parent.right
+          anchors.rightMargin: 0
+          anchors.left: parent.left
+          anchors.leftMargin: 0
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: 0
+          rotation: 180
+          source: "img/shadow-border.png"
+        }
 
 		// View Animation
 		Behavior on opacity { PropertyAnimation{ duration: 1000 } }
