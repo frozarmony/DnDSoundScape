@@ -26,8 +26,17 @@
 				<soundfile path="sound/sword2.wav" />
 			</oneshot>
 		</category>
-		<category name="Epic Fail" rowWidth="1" >
-			<music name="Bonhomme" imgPath="img/bonhomme.png" soundPath="sound/bonhomme.mp3" />
+		<category name="Music Samples" rowWidth="1" >
+			<music name="Bonhomme" imgPath="img/bonhomme.png" random="false" >
+				<soundfile path="sound/bonhomme.mp3" />
+			</music>
+			<music name="Peaceful" imgPath="img/peaceful.png" random="true" >
+				<soundfile path="sound/peaceful/04 - Jeremy Soule - Mhenlo's Theme.mp3" />
+				<soundfile path="sound/peaceful/09 - Jeremy Soule - Sands Of Kryta.mp3" />
+				<soundfile path="sound/peaceful/17 - Jeremy Soule - Crystal Oasis.mp3" />
+				<soundfile path="sound/peaceful/19 - Jeremy Soule - Ashford Abbey.mp3" />
+				<soundfile path="sound/peaceful/33 - Jeremy Soule - First Light (Bonus Track).mp3" />
+			</music>
 		</category>
 	</universal>
 	

@@ -292,11 +292,18 @@ SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataP
 		return registerSound(ambiant);
 	}
 	else if( tagName == "music" ){
-		return registerSound(new MusicSoundModel(
+		MusicSoundModel* music = new MusicSoundModel(
 						  xmlSound.attribute("name"),
 						  dataPath + "/" + xmlSound.attribute("imgPath"),
-						  dataPath + "/" + xmlSound.attribute("soundPath")
-		));
+						  (xmlSound.attribute("random", "false") == "true")
+		);
+
+		// Get Each sub-sounds
+		QDomNodeList subSounds = xmlSound.elementsByTagName("soundfile");
+		for(int i=0; i<subSounds.count(); ++i)
+			music->addMusic( dataPath + "/" + subSounds.at(i).toElement().attribute("path") );
+
+		return registerSound(music);
 	}
 	else
 		qDebug() << "The sound type '" << tagName << "' does not exist.";

@@ -3,6 +3,7 @@
 
 #include <QtCore/qmath.h>
 #include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 #include "soundmodel.h"
 
@@ -11,7 +12,10 @@ class MusicSoundModel : public SoundModel
 	Q_OBJECT
 public:
 	// Constructor
-	MusicSoundModel(const QString& name, const QString& imgPath, const QString& soundPath);
+	MusicSoundModel(const QString& name, const QString& imgPath, bool random);
+
+	// Method
+	void				addMusic(const QString& musicPath);
 
 protected:
 	// Inherited Method
@@ -24,6 +28,7 @@ public slots:
 
 private:
 	QMediaPlayer		m_player;
+	QMediaPlaylist		m_playList;
 };
 
 #endif // MUSICSOUNDMODEL_H
