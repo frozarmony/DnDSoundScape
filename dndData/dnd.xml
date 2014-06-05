@@ -2,8 +2,8 @@
 <dnd>
 	<universal>
 		<category name="Weather" >
-			<ambiant name="Rain" imgPath="img/rain.png" soundPath="sound/rain.wav" loopDuration="10000" shadingDuration="3000" />
-			<ambiant name="Storm" imgPath="img/storm.png" soundPath="sound/rain.wav" loopDuration="10000" shadingDuration="3000" >
+			<ambiant name="Rain" imgPath="img/rain.png" soundPath="sound/rain.wav" loopDuration="11000" shadingDuration="3000" />
+			<ambiant name="Light Storm" imgPath="img/storm.png" soundPath="sound/light-rain.wav" loopDuration="10000" shadingDuration="3000" >
 				<oneshot name="Thunder(M)" imgPath="img/storm.png" mTime="10000" sdTime="4000" >
 					<soundfile path="sound/storm/thunderClap_M_1.wav" />
 					<soundfile path="sound/storm/thunderClap_M_2.wav" />
@@ -18,29 +18,54 @@
 					<soundfile path="sound/storm/thunderClap_L_4.wav" />
 				</oneshot>
 			</ambiant>
+			<ambiant name="Thunder" imgPath="img/thunder.png" soundPath="sound/big-storm.wav" loopDuration="82800" shadingDuration="2000" />
 			<ambiant name="Wind" imgPath="img/wind.png" soundPath="sound/wind.wav" loopDuration="12500" shadingDuration="3000" />
 		</category>
 		<category name="Fight" >
-			<oneshot name="Sword Clash" imgPath="img/sword.png" >
+			<oneshot name="Sword" imgPath="img/sword.png" >
 				<soundfile path="sound/sword1.mp3" />
-				<soundfile path="sound/sword2.wav" />
+				<soundfile path="sound/sword2.mp3" />
 			</oneshot>
+			<oneshot name="Light Wound" imgPath="img/wound.png" >
+				<soundfile path="sound/wound/Lwound1.mp3" />
+				<soundfile path="sound/wound/Lwound2.mp3" />
+				<soundfile path="sound/wound/Lwound3.mp3" />
+				<soundfile path="sound/wound/Lwound4.mp3" />
+				<soundfile path="sound/wound/Lwound5.mp3" />
+				<soundfile path="sound/wound/Lwound6.mp3" />
+			</oneshot>
+			<oneshot name="Heavy Wound" imgPath="img/wound.png" >
+				<soundfile path="sound/wound/Hwound1.mp3" />
+				<soundfile path="sound/wound/Hwound2.mp3" />
+				<soundfile path="sound/wound/Hwound3.mp3" />
+				<soundfile path="sound/wound/Hwound4.mp3" />
+				<soundfile path="sound/wound/Hwound5.mp3" />
+			</oneshot>
+			<oneshot name="Châtaigne !" imgPath="img/fist.png" >
+					<soundfile path="sound/chataigne!.mp3" />
+				</oneshot>
+			<music name="Battle" imgPath="img/battle.png" mode="random" >
+					<soundfile path="sound/Ancient Bards - To the Master of Darkness.mp3" />
+				</music>
 		</category>
 		<category name="Music Samples" rowWidth="1" >
-			<music name="Bonhomme" imgPath="img/bonhomme.png" random="false" >
+			<music name="Bonhomme" imgPath="img/bonhomme.png" mode="sequential" >
 				<soundfile path="sound/bonhomme.mp3" />
 			</music>
-			<music name="Peaceful" imgPath="img/peaceful.png" random="true" >
-
+			<music name="Peaceful" imgPath="img/peaceful.png" mode="random" >
 				<soundfile path="sound/peaceful/17 - Jeremy Soule - Crystal Oasis.mp3" />
+				<soundfile path="sound/peaceful/04 - Jeremy Soule - Mhenlo's Theme.mp3" />
+				<soundfile path="sound/peaceful/09 - Jeremy Soule - Sands Of Kryta.mp3" />
+				<soundfile path="sound/peaceful/19 - Jeremy Soule - Ashford Abbey.mp3" />
+				<soundfile path="sound/peaceful/33 - Jeremy Soule - First Light (Bonus Track).mp3" />
 			</music>
 		</category>
 	</universal>
 	
 	
 	<places>
-		<place name="Forest" imgPath="img/forest.png" >
-			<category name="PlaceCategory" >
+		<place name="Wilderness" imgPath="img/forest.png" >
+			<category name="Forest" >
 				<ambiant name="Forest" imgPath="img/forest.png" soundPath="sound/forest.mp3" />
 				<oneshot name="Howling Wolf" imgPath="img/howling-wolf.png" >
 					<soundfile path="sound/howling-wolf.mp3" />
@@ -48,23 +73,31 @@
 				<oneshot name="Boar Oink" imgPath="img/boar-oink.png" >
 					<soundfile path="sound/boar-oink.wav" />
 				</oneshot>
+				<music name="Le matin" imgPath="img/sunrise.png" mode="sequential" >
+					<soundfile path="sound/le_matin-peer-gynt.mp3" />
+				</music>
 			</category>
-			<category name="PlaceCategory2" >
-				<ambiant name="Forest" imgPath="img/forest.png" soundPath="sound/forest.mp3" />
+			<category name="Cave" >
+				<ambiant name="Water Drop" imgPath="img/waterdrop.png" soundPath="sound/waterdrop.wav" loopDuration="69000" shadingDuration="1000" />
 			</category>
 		</place>
-		<place name="Forest2" imgPath="img/forest.png" >
-			<category name="PlaceCategory3" >
-				<ambiant name="Forest" imgPath="img/forest.png" soundPath="sound/forest.mp3" />
-				<oneshot name="Howling Wolf" imgPath="img/howling-wolf.png" >
-					<soundfile path="sound/howling-wolf.mp3" />
-				</oneshot>
+		<place name="Urban" imgPath="img/urban.png" >
+			<category name="Tavern" >
+				<ambiant name="Tavern" imgPath="img/tavern.png" soundPath="sound/tavern.wav" loopDuration="59000" shadingDuration="3000" />
+				<music name="Irish tavern" imgPath="img/irish.png" mode="random" >
+					<soundfile path="sound/The_Witcher-Murky_Waters_Country_Inn.mp3" />
+				</music>
+				<music name="Tavern Fight" imgPath="img/tooth.png" mode="sequential" >
+					<soundfile path="sound/Under Bergets Rot.mp3" />
+				</music>
 			</category>
-			<category name="PlaceCategory4" >
-				<oneshot name="Boar Oink" imgPath="img/boar-oink.png" >
-					<soundfile path="sound/boar-oink.wav" />
-				</oneshot>
+			<category name="Village" >
+				<ambiant name="Village" imgPath="img/village.png" soundPath="sound/village.wav" loopDuration="9762" shadingDuration="3000" />
 			</category>
+		</place>
+		<place name="Atmosphere" imgPath="img/howling-wolf.png" >
+		</place>
+		<place name="Scenario" imgPath="img/museum_128.png" >
 		</place>
 	</places>
 </dnd>
