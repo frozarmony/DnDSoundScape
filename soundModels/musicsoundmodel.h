@@ -32,6 +32,7 @@ private slots:
 private:
 	QMediaPlayer		m_player;
 	QMediaPlaylist		m_playList;
+	bool				m_isPlaying;
 };
 
 #endif // MUSICSOUNDMODEL_H

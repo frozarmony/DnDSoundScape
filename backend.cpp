@@ -61,6 +61,10 @@ void Backend::onSoundStart(){
 			m_mainPlayingSound->stop();
 		}
 		m_mainPlayingSound = sound;
+		if( sound->type() == SoundModel::TYPE_PLACE )
+			qDebug() << "Type Sound is Place";
+		else
+			qDebug() << "Type Sound is Music";
 		qDebug() << "MainSoundChanged : " << sound->name();
 	}
 }
@@ -206,7 +210,7 @@ void Backend::loadXmlFile(const QString &filePath){
 					// Add New Category
 					QDomElement category = node.toElement();
 
-					placeModel->addCategory( loadCategory(category, dataPath) );
+					placeModel->addCategory( loadCategory(category, dataPath, false) );
 				}
 			}
 
@@ -222,7 +226,7 @@ void Backend::loadXmlFile(const QString &filePath){
 	m_musicMaster.setVolume(0.8);
 }
 
-PanelModel* Backend::loadCategory(const QDomElement &category, const QString &dataPath){
+PanelModel* Backend::loadCategory(const QDomElement &category, const QString &dataPath, bool regSound){
 	QDomNode node;
 	PanelModel* categoryPanel = new PanelModel(category.attribute("name", "Undefined Category"),
 											   category.attribute("rowWidth", "2").toInt());
@@ -233,14 +237,14 @@ PanelModel* Backend::loadCategory(const QDomElement &category, const QString &da
 		node = sounds.at(j);
 
 		if( node.isElement() ){
-			categoryPanel->addSound( loadSound(node.toElement(), dataPath) );
+			categoryPanel->addSound( loadSound(node.toElement(), dataPath, regSound) );
 		}
 	}
 
 	return categoryPanel;
 }
 
-SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataPath){
+SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataPath, bool regSound){
 	QString tagName = xmlSound.tagName();
 
 	if( tagName == "oneshot" ){
@@ -254,7 +258,10 @@ SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataP
 		for(int i=0; i<subSounds.count(); ++i)
 			sound->addSound( dataPath + "/" + subSounds.at(i).toElement().attribute("path") );
 
-		return registerSound(sound);
+		if(regSound)
+			return registerSound(sound);
+		else
+			return sound;
 	}
 	else if( tagName == "ambiant" ){
 		AmbiantSoundModel* ambiant = new AmbiantSoundModel(
@@ -289,7 +296,10 @@ SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataP
 		}
 
 		// Register Ambiant
-		return registerSound(ambiant);
+		if(regSound)
+			return registerSound(ambiant);
+		else
+			return ambiant;
 	}
 	else if( tagName == "music" ){
 		MusicSoundModel* music = new MusicSoundModel(
@@ -303,7 +313,10 @@ SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataP
 		for(int i=0; i<subSounds.count(); ++i)
 			music->addMusic( dataPath + "/" + subSounds.at(i).toElement().attribute("path") );
 
-		return registerSound(music);
+		if(regSound)
+			return registerSound(music);
+		else
+			return music;
 	}
 	else
 		qDebug() << "The sound type '" << tagName << "' does not exist.";

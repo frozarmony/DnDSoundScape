@@ -30,6 +30,7 @@ private:
 	// Member
 	QList<PanelModel*>			m_categories;
 	int							m_playingChildrenSounds;
+	SoundModel*					m_mainSound;
 };
 
 #endif // PLACESOUNDMODEL_H

@@ -3,7 +3,8 @@
 // Constructor
 PlaceSoundModel::PlaceSoundModel(const QString& name, const QString& imgPath) :
 	SoundModel(SoundModel::TYPE_PLACE, name, imgPath),
-	m_playingChildrenSounds(0)
+	m_playingChildrenSounds(0),
+	m_mainSound(NULL)
 {
 }
 
@@ -49,19 +50,36 @@ void PlaceSoundModel::stopSound(){
 
 // Private Slots
 void PlaceSoundModel::onChildSoundStarted(){
-	if( ((SoundModel*)QObject::sender())->type() != SoundModel::TYPE_ONE_SHOT ){
+	SoundModel* senderSound = ((SoundModel*)QObject::sender());
+	if( senderSound->type() != SoundModel::TYPE_ONE_SHOT ){
+		int oldPlayingChildrenSounds = m_playingChildrenSounds;
+
 		++m_playingChildrenSounds;
+		qDebug() << "Place : Sound Started : " << senderSound->name() << " (" << m_playingChildrenSounds << ")";
+
+		if( senderSound->type() == SoundModel::TYPE_MUSIC ){
+			if( m_mainSound != NULL )
+				m_mainSound->stop();
+
+			m_mainSound = senderSound;
+		}
 
 		// Check for started signal
-		if(m_playingChildrenSounds == 1){
+		if(oldPlayingChildrenSounds == 0){
 			emit started();
 		}
 	}
 }
 
 void PlaceSoundModel::onChildSoundStopped(){
-	if( ((SoundModel*)QObject::sender())->type() != SoundModel::TYPE_ONE_SHOT ){
+	SoundModel* senderSound = ((SoundModel*)QObject::sender());
+	if( senderSound->type() != SoundModel::TYPE_ONE_SHOT ){
 		--m_playingChildrenSounds;
+		qDebug() << "Place : Sound Stopped : " << senderSound->name() << " (" << m_playingChildrenSounds << ")";
+
+		if( senderSound == m_mainSound ){
+			m_mainSound = NULL;
+		}
 
 		// Check for stopped signal
 		if(m_playingChildrenSounds < 1){

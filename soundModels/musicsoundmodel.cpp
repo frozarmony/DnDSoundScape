@@ -4,7 +4,8 @@
 MusicSoundModel::MusicSoundModel(const QString &name, const QString &imgPath, const QString& mode) :
 	SoundModel(SoundModel::TYPE_MUSIC, name, imgPath),
 	m_player(),
-	m_playList()
+	m_playList(),
+	m_isPlaying(false)
 {
 	// Config Playlist
 	if( mode == "random" )
@@ -31,7 +32,7 @@ void MusicSoundModel::addMusic(const QString &musicPath){
 
 // IsPlaying, Start & Stop
 bool MusicSoundModel::isPlayingSound(){
-	return m_player.state() == QMediaPlayer::PlayingState;
+	return m_isPlaying;
 }
 
 void MusicSoundModel::startSound(){
@@ -41,7 +42,7 @@ void MusicSoundModel::startSound(){
 			m_playList.next();
 
 		// Play it
-		qDebug() << "Start";
+		m_isPlaying = true;
 		m_player.setVolume(qFloor(masterVolume()*100.0));
 		m_player.play();
 		emit started();
@@ -52,7 +53,6 @@ void MusicSoundModel::stopSound(){
 	if(isPlaying()){
 		// Stop it
 		m_player.stop();
-		emit stopped();
 	}
 }
 
@@ -62,6 +62,8 @@ void MusicSoundModel::onMasterVolumeChanged(){
 }
 
 void MusicSoundModel::onPlayerStop(QMediaPlayer::State state){
-	if( state == QMediaPlayer::StoppedState )
+	if( state == QMediaPlayer::StoppedState ){
+		m_isPlaying = false;
 		emit stopped();
+	}
 }

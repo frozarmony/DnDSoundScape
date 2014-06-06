@@ -63,8 +63,8 @@ private:
 	void						initPlacesPanels();
 	SoundModel*					registerSound(SoundModel* sound, bool subSound);
 	void						loadXmlFile(const QString& filePath);
-	PanelModel*					loadCategory(const QDomElement& category, const QString& dataPath);
-	SoundModel*					loadSound(const QDomElement& xmlSound, const QString& dataPath);
+	PanelModel*					loadCategory(const QDomElement& category, const QString& dataPath, bool regSound = true);
+	SoundModel*					loadSound(const QDomElement& xmlSound, const QString& dataPath, bool regSound = true);
 
 };
 
