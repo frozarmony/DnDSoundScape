@@ -11,7 +11,7 @@ Backend::Backend(QQmlContext *ctxt, QObject *parent) :
 	m_loadedPlace(NULL),
 
 	// Masters Volume
-	m_generalMaster(),
+	//m_generalMaster(),
 	m_oneShotMaster(),
 	m_ambiantMaster(),
 	m_musicMaster(),
@@ -86,7 +86,7 @@ void Backend::initMastersVolume(){
 	//QObject::connect(&m_generalMaster, SIGNAL(volumeChanged(double)), &m_oneShotMaster, SLOT(setVolume(double)));
 
 	// Load in QML Context
-	m_ctxt->setContextProperty("generalMaster", QVariant::fromValue(&m_generalMaster));
+	//m_ctxt->setContextProperty("generalMaster", QVariant::fromValue(&m_generalMaster));
 	m_ctxt->setContextProperty("oneshotMaster", QVariant::fromValue(&m_oneShotMaster));
 	m_ctxt->setContextProperty("ambiantMaster", QVariant::fromValue(&m_ambiantMaster));
 	m_ctxt->setContextProperty("musicMaster", QVariant::fromValue(&m_musicMaster));
@@ -100,10 +100,10 @@ void Backend::initPlacesPanels(){
 	m_ctxt->setContextProperty("placesPanelsList", QVariant::fromValue((QObject*)&m_placesPanels));
 }
 
-SoundModel * Backend::registerSound(SoundModel *sound, bool subSound = false){
+SoundModel * Backend::registerSound(SoundModel *sound, bool regSound = true){
 	m_soundDB.append(sound);
 
-	if(!subSound){
+	if(regSound){
 		// On Sound Started & Stopped
 		QObject::connect(sound, SIGNAL(started()), this, SLOT(onSoundStart()));
 		QObject::connect(sound, SIGNAL(stopped()), this, SLOT(onSoundStop()));
@@ -220,7 +220,7 @@ void Backend::loadXmlFile(const QString &filePath){
 	}
 
 	// Reset Masters
-	m_generalMaster.setVolume(0.8);
+	//m_generalMaster.setVolume(0.8);
 	m_oneShotMaster.setVolume(0.8);
 	m_ambiantMaster.setVolume(0.8);
 	m_musicMaster.setVolume(0.8);
@@ -258,10 +258,7 @@ SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataP
 		for(int i=0; i<subSounds.count(); ++i)
 			sound->addSound( dataPath + "/" + subSounds.at(i).toElement().attribute("path") );
 
-		if(regSound)
-			return registerSound(sound);
-		else
-			return sound;
+		return registerSound(sound, regSound);
 	}
 	else if( tagName == "ambiant" ){
 		AmbiantSoundModel* ambiant = new AmbiantSoundModel(
@@ -296,10 +293,7 @@ SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataP
 		}
 
 		// Register Ambiant
-		if(regSound)
-			return registerSound(ambiant);
-		else
-			return ambiant;
+		return registerSound(ambiant, regSound);
 	}
 	else if( tagName == "music" ){
 		MusicSoundModel* music = new MusicSoundModel(
@@ -313,10 +307,7 @@ SoundModel* Backend::loadSound(const QDomElement &xmlSound, const QString &dataP
 		for(int i=0; i<subSounds.count(); ++i)
 			music->addMusic( dataPath + "/" + subSounds.at(i).toElement().attribute("path") );
 
-		if(regSound)
-			return registerSound(music);
-		else
-			return music;
+		return registerSound(music, regSound);
 	}
 	else
 		qDebug() << "The sound type '" << tagName << "' does not exist.";

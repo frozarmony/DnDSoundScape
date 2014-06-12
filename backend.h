@@ -46,7 +46,7 @@ private:
 	PlaceSoundModel*			m_loadedPlace;
 
 	// Masters Volume
-	MasterVolumeModel			m_generalMaster;
+	//MasterVolumeModel			m_generalMaster;
 	MasterVolumeModel			m_oneShotMaster;
 	MasterVolumeModel			m_ambiantMaster;
 	MasterVolumeModel			m_musicMaster;
@@ -61,7 +61,7 @@ private:
 	// Tool Method
 	void						initMastersVolume();
 	void						initPlacesPanels();
-	SoundModel*					registerSound(SoundModel* sound, bool subSound);
+	SoundModel*					registerSound(SoundModel* sound, bool regSound);
 	void						loadXmlFile(const QString& filePath);
 	PanelModel*					loadCategory(const QDomElement& category, const QString& dataPath, bool regSound = true);
 	SoundModel*					loadSound(const QDomElement& xmlSound, const QString& dataPath, bool regSound = true);

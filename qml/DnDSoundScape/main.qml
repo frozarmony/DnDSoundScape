@@ -71,10 +71,10 @@ Rectangle {
 
 		}
 
-		SoundController {
+        /*SoundController {
 			name: "Master"
 			masterVolumeModel: generalMaster
-		}
+        }*/
 
 		SoundController {
 			name: "OneShot"
