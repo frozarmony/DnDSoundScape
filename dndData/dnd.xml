@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE dnd>
 <dnd>
 	<universal>
-		<category name="Weather" >
+		<category name="Weather" rowWidth="1" >
 			<ambiant name="Rain" imgPath="img/rain.png" soundPath="sound/rain.wav" loopDuration="11000" shadingDuration="3000" />
 			<ambiant name="Light Storm" imgPath="img/storm.png" soundPath="sound/light-rain.wav" loopDuration="10000" shadingDuration="3000" >
 				<oneshot name="Thunder(M)" imgPath="img/storm.png" mTime="10000" sdTime="4000" >
@@ -20,6 +20,23 @@
 			</ambiant>
 			<ambiant name="Thunder" imgPath="img/thunder.png" soundPath="sound/big-storm.wav" loopDuration="82800" shadingDuration="2000" />
 			<ambiant name="Wind" imgPath="img/wind.png" soundPath="sound/wind.wav" loopDuration="12500" shadingDuration="3000" />
+		</category>
+		<category name="Universal" rowWidth="1" >
+			<oneshot name="Coins" imgPath="img/money.png" >
+				<soundfile path="sound/money/coins1.mp3" />
+				<soundfile path="sound/money/coins2.mp3" />
+				<soundfile path="sound/money/coins3.mp3" />
+				<soundfile path="sound/money/coins4.mp3" />
+				<soundfile path="sound/money/coins5.mp3" />
+				<soundfile path="sound/money/coins6.mp3" />
+			</oneshot>
+			<ambiant name="Fire" imgPath="img/fire.png" soundPath="sound/fire.wav" />
+			<music name="Bonhomme" imgPath="img/bonhomme.png" mode="sequential" >
+				<soundfile path="sound/bonhomme.mp3" />
+			</music>
+			<oneshot name="Dragon roar" imgPath="img/dragon.png" >
+				<soundfile path="sound/dragonroar.mp3" />
+			</oneshot>
 		</category>
 		<category name="Fight" >
 			<oneshot name="Sword" imgPath="img/sword.png" >
@@ -42,23 +59,15 @@
 				<soundfile path="sound/wound/Hwound5.mp3" />
 			</oneshot>
 			<oneshot name="Châtaigne !" imgPath="img/fist.png" >
-					<soundfile path="sound/chataigne!.mp3" />
-				</oneshot>
+				<soundfile path="sound/chataigne!.mp3" />
+			</oneshot>
 			<music name="Battle" imgPath="img/battle.png" mode="random" >
-					<soundfile path="sound/Ancient Bards - To the Master of Darkness.mp3" />
-				</music>
-		</category>
-		<category name="Music Samples" rowWidth="1" >
-			<music name="Bonhomme" imgPath="img/bonhomme.png" mode="sequential" >
-				<soundfile path="sound/bonhomme.mp3" />
+				<soundfile path="sound/Ancient Bards - To the Master of Darkness.mp3" />
+				<soundfile path="sound/Rhapsody of Fire - Thunders Mighty Roar.mp3" />
 			</music>
-			<music name="Peaceful" imgPath="img/peaceful.png" mode="random" >
-				<soundfile path="sound/peaceful/17 - Jeremy Soule - Crystal Oasis.mp3" />
-				<soundfile path="sound/peaceful/04 - Jeremy Soule - Mhenlo's Theme.mp3" />
-				<soundfile path="sound/peaceful/09 - Jeremy Soule - Sands Of Kryta.mp3" />
-				<soundfile path="sound/peaceful/19 - Jeremy Soule - Ashford Abbey.mp3" />
-				<soundfile path="sound/peaceful/33 - Jeremy Soule - First Light (Bonus Track).mp3" />
-			</music>
+			<oneshot name="Fireball" imgPath="img/fireball.png" >
+				<soundfile path="sound/fireball.mp3" />
+			</oneshot>
 		</category>
 	</universal>
 	
@@ -96,8 +105,31 @@
 			</category>
 		</place>
 		<place name="Atmosphere" imgPath="img/howling-wolf.png" >
+			<category name="" >
+				<music name="Peaceful" imgPath="img/peaceful.png" mode="random" >
+					<soundfile path="sound/peaceful/17 - Jeremy Soule - Crystal Oasis.mp3" />
+					<soundfile path="sound/peaceful/04 - Jeremy Soule - Mhenlo's Theme.mp3" />
+					<soundfile path="sound/peaceful/09 - Jeremy Soule - Sands Of Kryta.mp3" />
+					<soundfile path="sound/peaceful/19 - Jeremy Soule - Ashford Abbey.mp3" />
+					<soundfile path="sound/peaceful/33 - Jeremy Soule - First Light (Bonus Track).mp3" />
+				</music>
+				<music name="Light Stress" imgPath="img/stress.png" mode="random" >
+					<soundfile path="sound/stress/Arkania Studio - Musique d'Ambiance 1.mp3" />
+					<soundfile path="sound/stress/Arkania Studio - Musique d'Ambiance 4.mp3" />
+					<soundfile path="sound/stress/Arkania Studio - Musique d'Ambiance 5.mp3" />
+				</music>
+			</category>
 		</place>
 		<place name="Scenario" imgPath="img/museum_128.png" >
+			<category name="Characters" >
+				<oneshot name="Banzai Samurai" imgPath="img/samurai.png" >
+					<soundfile path="sound/banzai1.mp3" />
+					<soundfile path="sound/banzai2.mp3" />
+				</oneshot>
+				<oneshot name="Sai" imgPath="img/sai.png" >
+					<soundfile path="sound/sai.mp3" />
+				</oneshot>
+			</category>
 		</place>
 	</places>
 </dnd>
