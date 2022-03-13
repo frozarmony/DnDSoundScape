@@ -19,6 +19,8 @@ QML_IMPORT_PATH =
 QT += multimedia
 QT += xml
 
+LIBS += -Llame/libmp3lame-static.lib -lmp3lame
+
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     backend.cpp \
